@@ -10,8 +10,15 @@ function menorMayor(numeros) {
   // menorMayor([4, 6, 1, 7, 15]) debe retornar [1, 15]
   // ya que 1 es el número más chico (menor) dentro del arreglo [4, 6, 1, 7, 15]
   // y 15 es el número más grande (mayor) dentro del arreglo [4, 6, 1, 7, 15]
+    var menorMayor  = [];
 
-  // Tu código aca:
+    var min=Math.min.apply(null, numeros);
+    var max=Math.max.apply(null, numeros);
+
+    menorMayor.push(min);
+    menorMayor.push(max);
+
+    return menorMayor;
 
 }
 
@@ -40,9 +47,14 @@ function cuantosOnline(usuarios) {
   // }; 
   // cuantosOnline(usuarios) devuelve 2
   // Tip: Podes usar el metodo for...in
+  var count = 0;
+  for (var a in usuarios){
+      if (usuarios[a].online) {
+        count++;
+      }
+  }
 
-  // Tu código aca:
-
+  return count;
 }
 
 function divisores(numero) {
@@ -54,9 +66,20 @@ function divisores(numero) {
   // divisores(15) devuelve [3, 5]
   // divisores(11) devuelve 'Es primo'
 
-   // Tu código aca:
-
+  let resultado = [];
+  for (let i = 2; i < numero; i++) {
+    let res = numero % i;
+    if(res === 0)   {
+      resultado.push(i);
+    }
+  }
+  if(resultado.length === 0) {
+    return "Es primo";
+  } else {
+    return resultado;
+  }
 }
+
 
 function actividadesEnComun(persona1, persona2) {
   // La funcion llamada 'actividadesEnComun' recibe como argumento dos arrays de actividades (strings) llamados 'persona1' y 'persona2'
@@ -65,7 +88,9 @@ function actividadesEnComun(persona1, persona2) {
   //     persona2 = ['comer', 'dormir', 'futbol']
   // actividadesEnComun(persona1, persona2) => ['comer', 'dormir']
   // Tip: podes usar ciclos for anidados.
-  // Tu código aca:
+  let actEnCumun = persona1.filter(x => persona2.includes(x));
+  
+  return actEnCumun;
 
 }
 
@@ -75,8 +100,13 @@ function palabraMasLarga(array) {
   // Por ej:
   // palabraMasLarga(['hola esto string', 'frase con palabra']) debe devolver 'palabra'
 
-  // Tu código aca:
-
+  return array
+    .reduce((a, b) => {
+      a.push(...b.split(" "))
+      return a
+    }, [])
+    .sort((a, b) => a.length > b.length ? 1 : -1)
+    .pop()
 }
 
 function crearClaseEmprendedor() {
@@ -84,16 +114,17 @@ function crearClaseEmprendedor() {
       constructor(nombre, apellido, libros, mascotas) {
           // El constructor de la clase Emprendedor recibe nombre (string), apellido (string), libros (array de objetos), mascotas (array de strings)
           // Inicializar las propiedades del emprendedor con los valores recibidos como argumento
-
-          // Tu código aca:
+          this.nombre= nombre;
+          this.apellido= apellido;
+          this.libros= libros;
+          this.mascotas= mascotas;
 
       }
 
       addMascota(mascota) {
         // este método debe agregar una mascota (mascota) al arreglo de mascotas del emprendedor.
         // no debe retornar nada.
-
-        // Tu código aca:
+        this.mascotas.push(mascota);
 
       }
 
@@ -102,8 +133,8 @@ function crearClaseEmprendedor() {
           // Ej:
           // Suponiendo que el emprendedor tiene estas mascotas: ['perro', 'gato']
           // emprendedor.getMascotas() debería devolver 2
-
-          // Tu código aca:
+ 
+        return this.mascotas.length;
 
       }
 
@@ -112,9 +143,15 @@ function crearClaseEmprendedor() {
           // { nombre: book, autor: autor} al arreglo de libros del emprendedor.
           // No debe retornar nada.
 
-          // Tu código aca:
+          let nuevoLibro = {
+            nombre : book,
+            autor: autor
+          }
+
+          this.libros.push(nuevoLibro);
 
       }
+
 
       getBooks() {
           // El método 'getBooks' debe retornar un arreglo con sólo los nombres del arreglo de libros del emprendedor.
@@ -122,9 +159,14 @@ function crearClaseEmprendedor() {
           // Suponiendo que el emprendedor tiene estos libros: [{nombre: 'El señor de las moscas',autor: 'William Golding'}, {nombre: 'Fundacion', autor: 'Isaac Asimov'}]
           // emprendedor.getBooks() debería devolver ['El señor de las moscas', 'Fundacion']
 
-          // Tu código aca:
+          var libros = [];
+          for (var a in this.libros){
+            libros.push(this.libros[a].nombre);  
+          }
 
-      }
+          return libros;
+        }
+      
 
       getFullName() {
           // El metodo getFullName debe retornar un string con el nombre y apellido del emprendedor.
@@ -132,7 +174,7 @@ function crearClaseEmprendedor() {
           // Suponiendo que el emprendedor tiene: nombre: 'Elon' y apellido: 'Musk'
           // emprendedor.getFullName() deberia devolver 'Elon Musk'
 
-          // Tu código aca:
+          return this.nombre +" "+this.apellido; 
 
       }
   }
@@ -151,8 +193,15 @@ function repetirCaracteres() {
   // Por ej:
   // 'hola'.repeatCharacters() devuelve "hhoollaa"
 
-  // Tu código aca:
-
+  String.prototype.repeatCharacters = function () {
+    let palabra = this;
+    let palabraConCaracteresRepetidos = '';
+    for (var i = 0; i< palabra.length; i++) {
+      let letra = palabra[i];
+      palabraConCaracteresRepetidos += letra.charAt().repeat(2);
+    }
+    return palabraConCaracteresRepetidos
+  }
 }
 
 module.exports = {
